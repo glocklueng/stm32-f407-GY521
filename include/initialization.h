@@ -1,48 +1,52 @@
 void init_RCC()
     {
-    RCC->CR |= HSEBYP | HSEON;      // Ð²ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼ HSE
-    RCC->CFGR|= SW_0;               // Ñ‚Ð°ÐºÑ‚Ð¸Ñ€ÑƒÐµÐ¼ SYS_CLK Ð¾Ñ‚ HSE
+    RCC->CR |= HSEBYP | HSEON;      // âêëþ÷àåì HSE
+    RCC->CFGR|= SW_0;               // òàêòèðóåì SYS_CLK îò HSE
 
-    RCC->APB2ENR |= SPI1_EN;         // Ð²ÐºÐ» Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ spi_1
-    RCC->AHB1ENR |= GPIOA_EN;        // Ð²ÐºÐ» Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTA
-    RCC->AHB1ENR |= GPIOB_EN;        // Ð²ÐºÐ» Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTB
-    RCC->AHB1ENR |= GPIOD_EN;        // Ð²ÐºÐ» Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTD
-    RCC->AHB1ENR |= GPIOE_EN;        // Ð²ÐºÐ» Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ PORTD
-    RCC->APB2ENR |= USART1_EN;       // Ð²ÐºÐ» Ñ‚Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ uart_1
-
-
-
+    // RCC->APB2ENR |= SPI1_EN;         // âêë òàêòèðîâàíèå spi_1
+    // RCC->AHB1ENR |= GPIOA_EN;        // âêë òàêòèðîâàíèå PORTA
+    RCC->AHB1ENR |= GPIOB_EN;        // âêë òàêòèðîâàíèå PORTB
+    RCC->AHB1ENR |= GPIOD_EN;        // âêë òàêòèðîâàíèå PORTD
+    // RCC->AHB1ENR |= GPIOE_EN;        // âêë òàêòèðîâàíèå PORTE
+    RCC->APB2ENR |= USART1_EN;       // âêë òàêòèðîâàíèå uart_1
     }
 void init_GPIO()
     {
     // port A
     // 5,6,7 - SPI for acselerometer
-    GPIOA->MODER |= GPIO_MODER_MODER7_1 | GPIO_MODER_MODER6_1 | GPIO_MODER_MODER5_1;
-    GPIOA->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR5_0 | GPIO_OSPEEDER_OSPEEDR6_0 | GPIO_OSPEEDER_OSPEEDR7_0;
-    GPIOA->AFR[0] |= AF5_5 | AF5_6 | AF5_7;
-    // port B
+    // GPIOA->MODER |= GPIO_MODER_MODER7_1 | GPIO_MODER_MODER6_1 | GPIO_MODER_MODER5_1;
+    // GPIOA->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR5_0 | GPIO_OSPEEDER_OSPEEDR6_0 | GPIO_OSPEEDER_OSPEEDR7_0;
+    // GPIOA->AFR[0] |= AF5_5 | AF5_6 | AF5_7;
+    // --------------------------  port B ------------------------------------------
     // 6,7 - uart
     GPIOB->AFR[0]|= AF7_7 | AF7_6;
     GPIOB->OSPEEDR|=FAST_SPEED_7 | FAST_SPEED_6;
-    GPIOB->MODER|= GPIO_MODER_MODER7_1 | GPIO_MODER_MODER6_1 ;//
+    GPIOB->MODER|= GPIO_MODER_MODER7_1 | GPIO_MODER_MODER6_1;//
+    // 10,11 - i2c
+    GPIOB->MODER   |= GPIO_MODER_MODER10_1 | GPIO_MODER_MODER11_1;
+    GPIOB->AFR[0]  |= AF4_10 | AF4_11;
+    GPIOB->OSPEEDR |= FAST_SPEED_10 | FAST_SPEED_11;
 
-    // D
+
+ // --------------------------  port D ------------------------------------------
     // 12,13,14,15 - LED's
-    GPIOD->MODER|=(1<<30) | (1<<28);
-    GPIOD->OSPEEDR|=(1<<30)| (1<<28);
-    GPIOD->PUPDR|=(1<<30)| (1<<28);
+    GPIOD->MODER|= (1<<30)| (1<<28) | (1<<26)| (1<<24); //GPIO_MODER_MODER15_0 | GPIO_MODER_MODER14_0 | GPIO_MODER_MODER13_0 | GPIO_MODER_MODER12_0;
+    GPIOD->OSPEEDR|= (1<<30)| (1<<28) | (1<<26)| (1<<24); //GPIO_OSPEEDER_OSPEEDR15_1 | GPIO_OSPEEDER_OSPEEDR14_1 | GPIO_OSPEEDER_OSPEEDR13_1 | GPIO_OSPEEDER_OSPEEDR12_1;
+    GPIOD->PUPDR|=(1<<30)| (1<<28) | (1<<26)| (1<<24);
+
     // E
     // 1,2 - acselerometer INT ,3 - acselerometer CS
-    GPIOE->MODER |= GPIO_MODER_MODER1_1 | GPIO_MODER_MODER2_1 | GPIO_MODER_MODER3_0;
-    GPIOE->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR1_0 | GPIO_OSPEEDER_OSPEEDR2_0 | GPIO_OSPEEDER_OSPEEDR3_0;
-
+    // GPIOE->MODER |= GPIO_MODER_MODER1_1 | GPIO_MODER_MODER2_1 | GPIO_MODER_MODER3_0;
+    // GPIOE->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR1_0 | GPIO_OSPEEDER_OSPEEDR2_0 | GPIO_OSPEEDER_OSPEEDR3_0;
     }
 // portb 6,7
 void init_UART1()
 	{
-    USART1->BRR =((HSE_VALUE+BAUDRATE_USART_1/16)/BAUDRATE_USART_1 );    // Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ Ð½Ð° 9600
+    USART1->BRR =((HSE_VALUE+BAUDRATE_USART_1/16)/BAUDRATE_USART_1 );    // äåëèòåëü íà 9600
+
 	//USART1->BRR = 0x00001117;
-    USART1->CR1|= UE | TE ;//| PCE;
+    USART1->CR1|= UE | TE | RE | USART_CR1_RXNEIE;//| PCE;
+    NVIC_EnableIRQ(USART1_IRQn);
 	}
 //porta 5,6,7
 // 7 - MOSI
@@ -50,5 +54,5 @@ void init_UART1()
 // 5 - SCK
 void init_SPI()
     {
-    SPI1->CR1 |= DFF | MSTR | SPE;
+    SPI1->CR1 |= DFF | MSTR | SPE ;
     }

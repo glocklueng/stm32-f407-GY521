@@ -22,6 +22,7 @@ void red_on()     // просто тестовые задачи
     {
     GPIOD->ODR |= PORTD_14_on;
     }
+
 void red_off()    // просто тестовые задачи
     {
     GPIOD->ODR &= PORTD_14_off;
@@ -32,7 +33,23 @@ void blue_on()     // просто тестовые задачи
     {
     GPIOD->ODR |= PORTD_15_on;
     }
-void blue_off()     // просто тестовые задачи
+void blue_off()
     {
     GPIOD->ODR &= PORTD_15_off;
+    }
+void orange_on()
+    {
+    GPIOD->ODR |= PORTD_13_on;
+    }
+void orange_off()
+    {
+    GPIOD->ODR &= PORTD_13_off;
+    }
+void green_on()
+    {
+    GPIOD->ODR |= PORTD_12_on;
+    }
+void green_off()
+    {
+    GPIOD->ODR &= PORTD_12_off;
     }
