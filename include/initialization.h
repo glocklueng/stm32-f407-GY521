@@ -10,6 +10,8 @@ void init_RCC()
     RCC->AHB1ENR |= GPIOE_EN;        // вкл тактирование PORTD
     RCC->APB2ENR |= USART1_EN;       // вкл тактирование uart_1
 
+
+
     }
 void init_GPIO()
     {
