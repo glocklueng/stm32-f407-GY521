@@ -7,6 +7,7 @@ void init_RCC()
     // RCC->AHB1ENR |= GPIOA_EN;        // вкл тактирование PORTA
     RCC->AHB1ENR |= GPIOB_EN;        // вкл тактирование PORTB
     RCC->AHB1ENR |= GPIOD_EN;        // вкл тактирование PORTD
+    RCC->APB1ENR |= I2C2_EN;
     // RCC->AHB1ENR |= GPIOE_EN;        // вкл тактирование PORTE
     RCC->APB2ENR |= USART1_EN;       // вкл тактирование uart_1
     }
@@ -18,17 +19,16 @@ void init_GPIO()
     // GPIOA->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR5_0 | GPIO_OSPEEDER_OSPEEDR6_0 | GPIO_OSPEEDER_OSPEEDR7_0;
     // GPIOA->AFR[0] |= AF5_5 | AF5_6 | AF5_7;
     // --------------------------  port B ------------------------------------------
-    // 6,7 - uart
-    GPIOB->AFR[0]|= AF7_7 | AF7_6;
-    GPIOB->OSPEEDR|=FAST_SPEED_7 | FAST_SPEED_6;
-    GPIOB->MODER|= GPIO_MODER_MODER7_1 | GPIO_MODER_MODER6_1;//
-    // 10,11 - i2c
+    // 6,7 - UASRT_1
+    GPIOB->AFR[0]  |= AF7_7 | AF7_6;
+    GPIOB->OSPEEDR |= FAST_SPEED_7 | FAST_SPEED_6;
+    GPIOB->MODER   |= GPIO_MODER_MODER7_1 | GPIO_MODER_MODER6_1;
+    // 10,11 - i2C_2
     GPIOB->MODER   |= GPIO_MODER_MODER10_1 | GPIO_MODER_MODER11_1;
-    GPIOB->AFR[0]  |= AF4_10 | AF4_11;
+    GPIOB->AFR[1]  |= AF4_10 | AF4_11;
     GPIOB->OSPEEDR |= FAST_SPEED_10 | FAST_SPEED_11;
 
-
- // --------------------------  port D ------------------------------------------
+    // --------------------------  port D ------------------------------------------
     // 12,13,14,15 - LED's
     GPIOD->MODER|= (1<<30)| (1<<28) | (1<<26)| (1<<24); //GPIO_MODER_MODER15_0 | GPIO_MODER_MODER14_0 | GPIO_MODER_MODER13_0 | GPIO_MODER_MODER12_0;
     GPIOD->OSPEEDR|= (1<<30)| (1<<28) | (1<<26)| (1<<24); //GPIO_OSPEEDER_OSPEEDR15_1 | GPIO_OSPEEDER_OSPEEDR14_1 | GPIO_OSPEEDER_OSPEEDR13_1 | GPIO_OSPEEDER_OSPEEDR12_1;
@@ -39,7 +39,7 @@ void init_GPIO()
     // GPIOE->MODER |= GPIO_MODER_MODER1_1 | GPIO_MODER_MODER2_1 | GPIO_MODER_MODER3_0;
     // GPIOE->OSPEEDR |= GPIO_OSPEEDER_OSPEEDR1_0 | GPIO_OSPEEDER_OSPEEDR2_0 | GPIO_OSPEEDER_OSPEEDR3_0;
     }
-// portb 6,7
+// PortB 6,7
 void init_UART1()
 	{
     USART1->BRR =((HSE_VALUE+BAUDRATE_USART_1/16)/BAUDRATE_USART_1 );    // делитель на 9600
@@ -48,6 +48,22 @@ void init_UART1()
     USART1->CR1|= UE | TE | RE | USART_CR1_RXNEIE;//| PCE;
     NVIC_EnableIRQ(USART1_IRQn);
 	}
+void init_i2C_2()
+    {
+    I2C2->CR1 = I2C_CR1_SWRST;  // по-идее это очистка регистра
+    I2C2->CR1 = 0;              //
+
+    I2C1->SR2|=I2C_SR2_MSL;     // master-mode enable
+
+    I2C2->CR2 |= 8;
+    I2C2->CCR |= 20;
+    I2C1->TRISE = 12;  // задержка импульса
+
+    I2C2->CR1 |= I2C_CR1_PE;    // enable i2c
+
+    NVIC_EnableIRQ(I2C2_EV_IRQn); // interrupt I2C2 on
+    while (!(I2C2->CR1 & I2C_CR1_PE)){}
+    }
 //porta 5,6,7
 // 7 - MOSI
 // 6 - MISO

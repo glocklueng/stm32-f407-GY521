@@ -4,7 +4,7 @@
 #include "initialization.h"
 #include "system_dev.h"
 #include "uart_1.h"
-
+#include "i2C_2.h"
 
 void USART1_IRQHandler(void)
 	{
@@ -41,17 +41,15 @@ int main()
 char data[8]={'t','e','s','t','e','d',0x03};
 init_RCC();
 init_GPIO();
-// add_task(green_on);
-// add_task(red_on);
-// add_task(orange_on);
-// add_task(blue_on);
 init_UART1();
+init_i2C_2();
+
 __enable_irq();
 send_string_uart_1(data);
 send_string_uart_1(data);
 send_string_uart_1(data);
 
-
+read_i2C2(0xd0,0x68);
 while(1)
     {
     while(!number_of_tasks)

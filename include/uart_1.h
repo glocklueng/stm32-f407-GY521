@@ -48,6 +48,5 @@ void scan_uart1()
 			iteration_head_recive_uart_1();
 			}
 		break;
-
 		}
 	}

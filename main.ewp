@@ -1853,6 +1853,9 @@
       <name>$PROJ_DIR$\include\defines.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\include\i2C_2.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\include\initialization.h</name>
     </file>
     <file>

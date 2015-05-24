@@ -25,6 +25,7 @@
 #define PORTD_12_on (1<<12)
 #define PORTD_12_off ~(1<<12)
 // RCC
+#define I2C2_EN (1<<22)		// тиактирование i2C_2
 #define SPI1_EN (1<<12)		// тактирование SPI1
 #define USART1_EN (1<<4)	// тактирование uart1 в RCC
 #define GPIOD_EN (1<<3)  	// вкл тактирование PORTD
@@ -51,12 +52,13 @@
 //#define
 
 // SPI_1
-
 #define DFF (1<<11)	// data frame 8/16 bit
 #define MSTR (1<<2)	// master
 #define SPE (1<<6)	// SPI enable
 #define TXE (1<<1)
-//#define
+
+// i2C
+
 //#define
 //#define
 //#define

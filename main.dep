@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>431347187</fileChecksum>
+  <fileChecksum>1922727124</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
@@ -43,6 +43,7 @@
       <file>$PROJ_DIR$\Debug\Obj\startup_stm32f40xx.o</file>
       <file>$PROJ_DIR$\include\system\stm32f4xx_conf.h</file>
       <file>$PROJ_DIR$\include\system\system_stm32f4xx.h</file>
+      <file>$PROJ_DIR$\include\i2C_2.h</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\main.c</name>
@@ -59,11 +60,11 @@
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36 15 17 18 16 19</file>
+          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36 15 17 18 16 19 37</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36 15 17 18 16 19</file>
+          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36 15 17 18 16 19 37</file>
         </tool>
       </inputs>
     </file>
