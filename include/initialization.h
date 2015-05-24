@@ -27,7 +27,7 @@ void init_GPIO()
     GPIOB->MODER   |= GPIO_MODER_MODER10_1 | GPIO_MODER_MODER11_1;
     GPIOB->AFR[1]  |= AF4_10 | AF4_11;
     GPIOB->OSPEEDR |= FAST_SPEED_10 | FAST_SPEED_11;
-
+    GPIOB->OTYPER |=GPIO_OTYPER_OT_10 | GPIO_OTYPER_OT_11;
     // --------------------------  port D ------------------------------------------
     // 12,13,14,15 - LED's
     GPIOD->MODER|= (1<<30)| (1<<28) | (1<<26)| (1<<24); //GPIO_MODER_MODER15_0 | GPIO_MODER_MODER14_0 | GPIO_MODER_MODER13_0 | GPIO_MODER_MODER12_0;

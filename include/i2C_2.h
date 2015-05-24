@@ -38,19 +38,35 @@ void I2C2_EV_IRQHandler()
   }
 void read_i2C2(char device_adress, char register_adress)
   {
+  char buf;
   I2C2->CR1 |= I2C_CR1_START;
   while(!(I2C2->SR1 & I2C_SR1_SB));
-  I2C2->CR1|=I2C_CR1_ACK;
-  // (void) I2C2->SR1;
-  I2C2->DR = (device_adress);
+  // I2C2->CR1 |= I2C_CR1_ACK;
+  (void) I2C2->SR1;
+  I2C2->DR = device_adress;
+  // while (!(I2C2->SR1 & I2C_SR1_ADDR)); // ожидаем окончания передачи адреса
+  (void) I2C2->SR1;  // по даташиту это надо читать...
+  (void) I2C2->SR2;  //
+  while (!(I2C2->SR1 & I2C_SR1_ADDR));
+
+  (void) I2C2->SR1;  // по даташиту это надо читать...
+  (void) I2C2->SR2;  //
+  I2C2->DR = register_adress;
+
+  // while (!(I2C2->SR1 & I2C_SR1_ADDR)); // ожидаем окончания передачи адреса
+  (void) I2C2->SR1;  // по даташиту это надо читать...
+  (void) I2C2->SR2;  //
+  I2C2->CR1 |= I2C_CR1_START;
+  while(!(I2C2->SR1 & I2C_SR1_SB));
+  I2C2->DR = (device_adress) | 1;
   while (!(I2C2->SR1 & I2C_SR1_ADDR)); // ожидаем окончания передачи адреса
   (void) I2C2->SR1;  // по даташиту это надо читать...
   (void) I2C2->SR2;  //
-  I2C2->DR = (register_adress) | 1;
-  while (!(I2C2->SR1 & I2C_SR1_ADDR)); // ожидаем окончания передачи адреса
-  (void) I2C2->SR1;  // по даташиту это надо читать...
-  (void) I2C2->SR2;  //
+  while (!(I2C2->SR1 & I2C_SR1_RXNE)); // ожидаем окончания передачи адреса
   I2C1->CR1 |= I2C_CR1_STOP;
+  buf=I2C2->DR;
+  if(buf == 0x68)
+    green_on();
 
   I2C1->CR1&=~I2C_CR1_PE;
   I2C1->CR1|=I2C_CR1_PE;
