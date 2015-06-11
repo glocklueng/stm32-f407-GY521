@@ -1,7 +1,4 @@
-// #define tx_rx while( (head_recive_uart_1++) != tail_transmit_uart_1) {
-// 			if(head_recive_uart_1==MAX_RX_BUF_SIZE)
-// 				head_recive_uart_1=0;
-// 			}
+
 void iteration_head_recive_uart_1()
 	{
 	head_recive_uart_1++;

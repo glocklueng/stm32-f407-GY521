@@ -6,6 +6,25 @@
 #include "uart_1.h"
 #include "i2C_2.h"
 
+
+void TIM6_DAC_IRQHandler(void)
+	{
+	counter++;
+	if(counter==2)
+		{
+		add_task(red_on);
+		}
+	if(counter==4)
+		{
+		char data[8]={'t','e','s','t','e','d',0x03};
+		counter=0;
+		send_string_uart_1(data);
+		add_task(red_off);
+		}
+	TIM6->SR &= ~TIM_SR_UIF;
+	return;
+	}
+
 void USART1_IRQHandler(void)
 	{
 	if(USART1->SR & USART_SR_RXNE)
@@ -38,18 +57,22 @@ void USART1_IRQHandler(void)
 
 int main()
 {
-char data[8]={'t','e','s','t','e','d',0x03};
+char data[2]={0,0x03};
 init_RCC();
 init_GPIO();
 init_UART1();
 init_i2C_2();
+init_TIM6();
 
 __enable_irq();
+i2C2_tx(0xD0,0x6B,0x00);	//
+
+i2C2_tx(0xD0,0x1B,0xE0);
+data[0] = read_i2C2(0xD0,0x1B);
 send_string_uart_1(data);
-send_string_uart_1(data);
+data[0] = read_i2C2(0xD0,0x75);
 send_string_uart_1(data);
 
-read_i2C2(0xd0,0x68);
 while(1)
     {
     while(!number_of_tasks)

@@ -15,3 +15,6 @@ u8 head_recive_uart_1=0;
 // i2c2
 u8 buffer_recive_i2c2[MAX_RX_BUF_SIZE];
 u8 buffer_i2c2=0;
+
+// TIM6
+u8 counter=0;

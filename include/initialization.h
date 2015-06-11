@@ -3,6 +3,7 @@ void init_RCC()
     RCC->CR |= HSEBYP | HSEON;      // включаем HSE
     RCC->CFGR|= SW_0;               // тактируем SYS_CLK от HSE
 
+    RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;         // enable timer 2
     // RCC->APB2ENR |= SPI1_EN;         // вкл тактирование spi_1
     // RCC->AHB1ENR |= GPIOA_EN;        // вкл тактирование PORTA
     RCC->AHB1ENR |= GPIOB_EN;        // вкл тактирование PORTB
@@ -23,7 +24,7 @@ void init_GPIO()
     GPIOB->AFR[0]  |= AF7_7 | AF7_6;
     GPIOB->OSPEEDR |= FAST_SPEED_7 | FAST_SPEED_6;
     GPIOB->MODER   |= GPIO_MODER_MODER7_1 | GPIO_MODER_MODER6_1;
-    // 10,11 - i2C_2
+    // portb 10,11 - i2C_2
     GPIOB->MODER   |= GPIO_MODER_MODER10_1 | GPIO_MODER_MODER11_1;
     GPIOB->AFR[1]  |= AF4_10 | AF4_11;
     GPIOB->OSPEEDR |= FAST_SPEED_10 | FAST_SPEED_11;
@@ -48,6 +49,7 @@ void init_UART1()
     USART1->CR1|= UE | TE | RE | USART_CR1_RXNEIE;//| PCE;
     NVIC_EnableIRQ(USART1_IRQn);
 	}
+
 void init_i2C_2()
     {
     I2C2->CR1 = I2C_CR1_SWRST;  // по-идее это очистка регистра
@@ -68,6 +70,18 @@ void init_i2C_2()
 // 7 - MOSI
 // 6 - MISO
 // 5 - SCK
+void init_TIM6()
+    {
+
+    TIM6->CR1 |= TIM_CR1_ARPE;//
+    TIM6->DIER |= TIM_DIER_UIE; // interrupt enable
+
+    TIM6->PSC = 8000 - 1; // по идее если у нас APB1 работает на 8ћгц, а € не ставил никаких делителей итп,
+    TIM6->ARR = 200;        // то с данными настройками прерывание каждые 200мс
+
+    NVIC_EnableIRQ(TIM6_DAC_IRQn);
+    TIM6->CR1 |= TIM_CR1_CEN;   //enable timer
+    }
 void init_SPI()
     {
     SPI1->CR1 |= DFF | MSTR | SPE ;

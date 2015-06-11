@@ -6,65 +6,74 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
-      <file>$TOOLKIT_DIR$\config\linker\ST\stm32f407xG.icf</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
-      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm4.h</file>
-      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmInstr.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm4_simd.h</file>
       <file>$PROJ_DIR$\include\system\stm32f4xx.h</file>
+      <file>$PROJ_DIR$\include\system\stm32f4xx_conf.h</file>
+      <file>$PROJ_DIR$\include\system\system_stm32f4xx.h</file>
       <file>$PROJ_DIR$\include\defines.h</file>
+      <file>$PROJ_DIR$\include\i2C_2.h</file>
       <file>$PROJ_DIR$\include\system_dev.h</file>
       <file>$PROJ_DIR$\include\parameters.h</file>
       <file>$PROJ_DIR$\include\initialization.h</file>
       <file>$PROJ_DIR$\include\uart_1.h</file>
       <file>$PROJ_DIR$\main.c</file>
-      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
-      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmFunc.h</file>
       <file>$PROJ_DIR$\include\system\startup_stm32f40xx.s</file>
       <file>$PROJ_DIR$\include\system\system_stm32f4xx.c</file>
       <file>$PROJ_DIR$\Debug\Exe\c.out</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm4_simd.h</file>
       <file>$PROJ_DIR$\Debug\Obj\system_stm32f4xx.pbi</file>
-      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
-      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
-      <file>$PROJ_DIR$\Debug\Obj\system_stm32f4xx.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
       <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmFunc.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\startup_stm32f40xx.o</file>
-      <file>$PROJ_DIR$\include\system\stm32f4xx_conf.h</file>
-      <file>$PROJ_DIR$\include\system\system_stm32f4xx.h</file>
-      <file>$PROJ_DIR$\include\i2C_2.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_stm32f4xx.o</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmInstr.h</file>
+      <file>$TOOLKIT_DIR$\config\linker\ST\stm32f407xG.icf</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm4.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
     </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 12</file>
+        </tool>
+      </outputs>
+    </file>
     <file>
       <name>$PROJ_DIR$\main.c</name>
       <outputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 28</file>
+          <name>BICOMP</name>
+          <file> 22</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 32</file>
+          <name>ICCARM</name>
+          <file> 17</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36 15 17 18 16 19 37</file>
+          <name>BICOMP</name>
+          <file> 0 31 35 37 36 29 32 30 34 16 27 21 15 20 13 2 3 6 7 5 8 4</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36 15 17 18 16 19 37</file>
+          <name>ICCARM</name>
+          <file> 0 31 35 37 36 29 32 30 34 16 27 21 15 20 13 2 3 6 7 5 8 4</file>
         </tool>
       </inputs>
     </file>
@@ -73,7 +82,7 @@
       <outputs>
         <tool>
           <name>AARM</name>
-          <file> 34</file>
+          <file> 23</file>
         </tool>
       </outputs>
     </file>
@@ -81,22 +90,22 @@
       <name>$PROJ_DIR$\include\system\system_stm32f4xx.c</name>
       <outputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 31</file>
+          <name>BICOMP</name>
+          <file> 14</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 26</file>
+          <name>ICCARM</name>
+          <file> 24</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36</file>
+          <name>BICOMP</name>
+          <file> 0 31 35 37 36 29 32 30 34 16 27 21 15 20 13 2</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 14 7 9 12 11 2 5 10 6 29 8 21 33 22 13 36</file>
+          <name>ICCARM</name>
+          <file> 0 31 35 37 36 29 32 30 34 16 27 21 15 20 13 2</file>
         </tool>
       </inputs>
     </file>
@@ -105,18 +114,9 @@
       <inputs>
         <tool>
           <name>ILINK</name>
-          <file> 1 28 34 31 30 3 0 27</file>
+          <file> 28 17 23 24 18 25 26 19</file>
         </tool>
       </inputs>
-    </file>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>ILINK</name>
-          <file> 25</file>
-        </tool>
-      </outputs>
     </file>
   </configuration>
   <configuration>
