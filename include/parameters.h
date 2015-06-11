@@ -18,3 +18,12 @@ u8 buffer_i2c2=0;
 
 // TIM6
 u8 counter=0;
+
+// data
+u16 acc_x=0;
+u16 acc_y=0;
+u16 acc_z=0;
+
+u16 gyro_x=0;
+u16 gyro_y=0;
+u16 gyro_z=0;
