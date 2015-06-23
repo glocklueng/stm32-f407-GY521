@@ -1865,6 +1865,9 @@
       <name>$PROJ_DIR$\include\system_dev.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\include\tasks.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\include\uart_1.h</name>
     </file>
   </group>

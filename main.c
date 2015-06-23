@@ -5,22 +5,26 @@
 #include "system_dev.h"
 #include "uart_1.h"
 #include "i2C_2.h"
+#include "tasks.h"
 
 
 void TIM6_DAC_IRQHandler(void)
 	{
-	counter++;
-	if(counter==2)
+        if(start)
+          counter++;
+        flag++;
+
+	if(counter==1)
 		{
-		add_task(red_on);
+                add_task(blue_on);
 		}
-	if(counter==4)
+	if(counter==3)
 		{
-		char data[8]={'t','e','s','t','e','d',0x03};
 		counter=0;
-		send_string_uart_1(data);
-		add_task(red_off);
-		}
+		add_task(blue_off);
+		add_task(read_data_acc);		// read_data_gyro // read_data_acc
+		start=0;
+                }
 	TIM6->SR &= ~TIM_SR_UIF;
 	return;
 	}
@@ -57,6 +61,7 @@ void USART1_IRQHandler(void)
 
 int main()
 {
+int i=0;
 char data[2]={0,0x03};
 init_RCC();
 init_GPIO();
@@ -65,14 +70,27 @@ init_i2C_2();
 init_TIM6();
 
 __enable_irq();
-i2C2_tx(0xD0,0x6B,0x00);	//
-
+i2C2_tx(0xD0,0x6B,0x00);
+flag=0;
+while(flag!=3);
 i2C2_tx(0xD0,0x1B,0xE0);
-data[0] = read_i2C2(0xD0,0x1B);
-send_string_uart_1(data);
-data[0] = read_i2C2(0xD0,0x75);
-send_string_uart_1(data);
+flag=0;
+while(flag!=3);
+i2C2_tx(0xD0,0x1C,0xE0);
+flag=0;
+while(flag!=3);
 
+/*
+i2C2_tx(0xD0,0x1B,0xE0);
+i2C2_tx(0xD0,0x1C,0xE0);
+i2C2_tx(0xD0,0x0D,0xFF);
+i2C2_tx(0xD0,0x0E,0xFF);
+i2C2_tx(0xD0,0x0F,0xFF);
+i2C2_tx(0xD0,0x10,0x3F);
+*/
+
+i2C2_tx(0xD0,0x1A,0x06);
+start=true;
 while(1)
     {
     while(!number_of_tasks)

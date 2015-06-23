@@ -18,7 +18,8 @@ u8 buffer_i2c2=0;
 
 // TIM6
 u8 counter=0;
-
+u8 flag=0;
+bool start=false;
 // data
 u16 acc_x=0;
 u16 acc_y=0;
@@ -27,3 +28,15 @@ u16 acc_z=0;
 u16 gyro_x=0;
 u16 gyro_y=0;
 u16 gyro_z=0;
+
+u16 last_acc_x[SIZE];
+u16 last_acc_y[SIZE];
+u16 last_acc_z[SIZE];
+
+u16 counter_filter;
+
+bool start_filter=false;
+
+u16 last_gyro_x[SIZE];
+u16 last_gyro_y[SIZE];
+u16 last_gyro_z[SIZE];

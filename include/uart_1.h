@@ -12,10 +12,12 @@ void send_uart_1(char data)
 		{}
 	USART1->DR = data;
 	}
+
 void send_string_uart_1(char *data)
 	{
-	while( ( buffer_transmit_uart_1[tail_transmit_uart_1] = (*data++) ) !=0x03)
+	while( (*data)!=0x03)
 		{
+                buffer_transmit_uart_1[tail_transmit_uart_1] = (*data++);
 		tail_transmit_uart_1++;
 		if( tail_transmit_uart_1 == MAX_TX_BUF_SIZE)
 			tail_transmit_uart_1=0;
@@ -33,14 +35,12 @@ void scan_uart1()
 		{
 		case 'e':
 			{
-			orange_on();
 			iteration_head_recive_uart_1();
 			iteration_head_recive_uart_1();
 			}
 		break;
 		case 'q':
 			{
-			orange_off();
 			iteration_head_recive_uart_1();
 			iteration_head_recive_uart_1();
 			}

@@ -1,6 +1,15 @@
 // system_dev.h
-#define MAX_TASKS 32	 // макс кол-во задач
 
+typedef u8 bool;
+#define false 0
+#define true 1
+#define delay {int i=0; \
+              for(i=0;i<1000;i++){};\
+              }
+
+
+#define MAX_TASKS 32	 // макс кол-во задач
+#define SIZE 30
 // GPIO
 #define AF7_7 (1<<30)|(1<<29)|(1<<28)	// altertative func portb 7
 #define AF7_6 (1<<26)|(1<<25)|(1<<24)	// altertative func portb 6

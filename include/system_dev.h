@@ -10,13 +10,11 @@ void add_task( void (*pf)())     // добавление задачи на выполнение
 
 void delete_task()             // удаление задачи
     {
-
     buffer_of_tasks[head_of_tasks]=0;
     head_of_tasks++;
     number_of_tasks--;
     if(head_of_tasks == MAX_TASKS)
         head_of_tasks=0;
-
     }
 
 
